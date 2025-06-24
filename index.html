@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>척척지붕개량공사 - 전문 지붕개량공사</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+       
+        body {
+            font-family: 'Noto Sans KR', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+       
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+       
+        /* Header */
+        header {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+       
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+       
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2c5530;
+        }
+       
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+       
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+       
+        .nav-links a:hover {
+            color: #2c5530;
+        }
+       
+        .phone-btn {
+            background: #2c5530;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: background 0.3s;
+        }
+       
+        .phone-btn:hover {
+            background: #1e3a21;
+        }
+       
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(44, 85, 48, 0.8), rgba(44, 85, 48, 0.8)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23e8f4ea" width="1200" height="600"/><polygon fill="%23c8e6cc" points="0,600 400,200 800,400 1200,100 1200,600"/></svg>');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            color: white;
+            text-align: center;
+            margin-top: 80px;
+        }
+       
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+       
+        .hero-content p {
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+       
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+       
+        .btn-primary, .btn-secondary {
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+       
+        .btn-primary {
+            background: #ff6b35;
+            color: white;
+            border: 2px solid #ff6b35;
+        }
+       
+        .btn-primary:hover {
+            background: #e55a2b;
+            transform: translateY(-2px);
+        }
+       
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+       
+        .btn-secondary:hover {
+            background: white;
+            color: #2c5530;
+        }
+       
+        /* Features Section */
+        .features {
+            padding: 5rem 0;
+            background: #f8f9fa;
+        }
+       
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #2c5530;
+        }
+       
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+       
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+       
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+       
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+       
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #2c5530;
+        }
+       
+        /* Portfolio Section */
+        .portfolio {
+            padding: 5rem 0;
+            background: white;
+        }
+       
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+       
+        .portfolio-item {
+            background: #f8f9fa;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+       
+        .portfolio-item:hover {
+            transform: translateY(-5px);
+        }
+       
+        .portfolio-image {
+            height: 250px;
+            background: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #666;
+        }
+       
+        .portfolio-content {
+            padding: 1.5rem;
+        }
+       
+        .portfolio-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #2c5530;
+        }
+       
+        .portfolio-details {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+       
+        /* Quote Section */
+        .quote-section {
+            padding: 5rem 0;
+            background: #2c5530;
+            color: white;
+        }
+       
+        .quote-form {
+            text-align: center;
+        }
+       
+        .quote-form p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+       
+        .quote-form .btn-primary {
+            display: inline-block;
+            text-decoration: none;
+            font-size: 1.3rem;
+            padding: 1.2rem 2.5rem;
+            margin: 1rem;
+            background: #ff6b35;
+            color: white;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+       
+        .quote-form .btn-primary:hover {
+            background: #e55a2b;
+            transform: translateY(-2px);
+        }
+       
+        .quote-benefits {
+            margin-top: 2rem;
+        }
+       
+        .quote-benefits p {
+            opacity: 0.8;
+            font-size: 1rem;
+        }
+       
+        /* Contact Section */
+        .contact {
+            padding: 5rem 0;
+            background: #f8f9fa;
+        }
+       
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+       
+        .contact-info {
+            text-align: center;
+        }
+       
+        .contact-item {
+            margin-bottom: 2rem;
+        }
+       
+        .contact-item h3 {
+            color: #2c5530;
+            margin-bottom: 0.5rem;
+        }
+       
+        .contact-item p {
+            font-size: 1.1rem;
+        }
+       
+        /* Footer */
+        footer {
+            background: #2c5530;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+       
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+           
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+           
+            .hero-content p {
+                font-size: 1.2rem;
+            }
+           
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+           
+            .btn-primary, .btn-secondary {
+                width: 80%;
+                text-align: center;
+            }
+           
+            .features-grid,
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <div class="logo">척척지붕개량공사</div>
+            <ul class="nav-links">
+                <li><a href="#home">홈</a></li>
+                <li><a href="#portfolio">시공사례</a></li>
+                <li><a href="#quote">견적상담</a></li>
+                <li><a href="#contact">연락처</a></li>
+            </ul>
+            <a href="tel:010-6277-2902" class="phone-btn">📞 010-6277-2902</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>오래된 지붕, 이제 걱정 마세요</h1>
+                <p>30년 경력의 전문가가 안전하고 튼튼한 지붕으로 새롭게 만들어드립니다.<br>부모님 집, 우리 집 지붕을 믿고 맡겨주세요.</p>
+                <div class="cta-buttons">
+                    <a href="#quote" class="btn-primary">무료 견적상담</a>
+                    <a href="#portfolio" class="btn-secondary">시공사례 보기</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">왜 척척지붕개량공사를 선택해야 할까요?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🏠</div>
+                    <h3>30년 경력의 전문가</h3>
+                    <p>수많은 지붕공사 경험을 바탕으로 안전하고 확실한 시공을 약속드립니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✅</div>
+                    <h3>A/S 보장</h3>
+                    <p>시공 후 3년간 무상 A/S를 제공하여 고객님께 안심을 드립니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>합리적인 가격</h3>
+                    <p>불필요한 중간비용 없이 직접 시공으로 합리적인 가격을 제공합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔧</div>
+                    <h3>맞춤형 솔루션</h3>
+                    <p>집마다 다른 지붕 상태를 정확히 진단하여 최적의 해결책을 제시합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <h2 class="section-title">시공사례</h2>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <div class="portfolio-image">[시공 전후 사진]</div>
+                    <div class="portfolio-content">
+                        <h3>서울 강남구 단독주택 지붕교체</h3>
+                        <p>30년된 기와지붕을 현대식 슬레이트로 전면 교체. 단열재 추가 시공으로 에너지 효율성 대폭 개선.</p>
+                        <div class="portfolio-details">
+                            <span>공사일: 2025.06.10</span>
+                            <span>공사기간: 5일</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-image">[시공 전후 사진]</div>
+                    <div class="portfolio-content">
+                        <h3>경기 성남시 다세대주택 방수공사</h3>
+                        <p>누수로 고생하던 옥상을 완전 방수처리. 우레탄 방수 + 보호층 시공으로 완벽한 누수 차단.</p>
+                        <div class="portfolio-details">
+                            <span>공사일: 2025.05.28</span>
+                            <span>공사기간: 3일</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-image">[시공 전후 사진]</div>
+                    <div class="portfolio-content">
+                        <h3>인천 부평구 상가건물 지붕보수</h3>
+                        <p>태풍으로 손상된 지붕 긴급복구. 안전한 임시조치 후 완전한 지붕 재시공까지 원스톱 서비스.</p>
+                        <div class="portfolio-details">
+                            <span>공사일: 2025.05.15</span>
+                            <span>공사기간: 7일</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-image">[시공 전후 사진]</div>
+                    <div class="portfolio-content">
+                        <h3>부산 해운대구 펜션 지붕개량</h3>
+                        <p>바닷바람에 부식된 지붕을 내구성 강한 징크로 교체. 방청처리로 장기간 사용 가능.</p>
+                        <div class="portfolio-details">
+                            <span>공사일: 2025.04.22</span>
+                            <span>공사기간: 6일</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Section -->
+    <section id="quote" class="quote-section">
+        <div class="container">
+            <h2 class="section-title" style="color: white;">무료 견적상담</h2>
+            <div class="quote-form">
+                <p>
+                    30년 경력의 전문가가 직접 상담해드립니다.<br>
+                    정확한 견적을 위해 간단한 정보를 입력해주세요.
+                </p>
+               
+                <!-- 견적상담 신청 버튼 -->
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSfeWPaDLojo9DjAX_Ktdw6PgkzspVC6o1Z6xmMBVzCr5l-jhA/viewform" target="_blank" class="btn-primary">
+                    📋 견적상담 신청하기
+                </a>
+               
+                <div class="quote-benefits">
+                    <p>
+                        ✅ 24시간 내 연락드립니다<br>
+                        ✅ 방문상담 무료<br>
+                        ✅ 정확한 견적 제공
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">연락처</h2>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <h3>📞 전화상담</h3>
+                        <p>010-6277-2902</p>
+                        <p>평일 오전 8시 ~ 오후 6시</p>
+                    </div>
+                    <div class="contact-item">
+                        <h3>📧 이메일</h3>
+                        <p>jimac256@naver.com</p>
+                    </div>
+                    <div class="contact-item">
+                        <h3>📍 서비스 지역</h3>
+                        <p>강원 · 충청 · 서울 · 경기</p>
+                        <p>기타 지역 상담 가능</p>
+                    </div>
+                </div>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <h3>💼 사업자 정보</h3>
+                        <p>척척지붕개량공사 대표 정연철</p>
+                        <p>사업자등록번호: 135-11-90935</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 척척지붕개량공사. 모든 권리 보유.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Header background on scroll
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.backdropFilter = 'blur(10px)';
+            } else {
+                header.style.background = '#fff';
+                header.style.backdropFilter = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
