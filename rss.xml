@@ -1,4 +1,4 @@
-xml<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
 <channel>
 <title>척척지붕개량사</title>
@@ -34,6 +34,9 @@ xml<?xml version="1.0" encoding="UTF-8"?>
 <description>수원, 성남, 고양, 용인 등 경기도 지역 지붕개량</description>
 <pubDate>Tue, 24 Jun 2025 00:00:00 +0900</pubDate>
 </item>
+
+</channel>
+</rss>
 
 </channel>
 </rss>
