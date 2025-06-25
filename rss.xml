@@ -1,0 +1,31 @@
+xml<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>척척지붕개량사</title>
+    <link>https://척척지붕개량.shop</link>
+    <description>강원도 전문 지붕개량·보수 서비스</description>
+    <language>ko-KR</language>
+    <lastBuildDate>Wed, 25 Jun 2025 00:00:00 +0900</lastBuildDate>
+    
+    <item>
+      <title>징크지붕 시공 서비스</title>
+      <link>https://척척지붕개량.shop#zinc</link>
+      <description>강원도 지역 징크지붕 전문 시공 서비스</description>
+      <pubDate>Wed, 25 Jun 2025 00:00:00 +0900</pubDate>
+    </item>
+    
+    <item>
+      <title>기와지붕 보수 서비스</title>
+      <link>https://척척지붕개량.shop#tile</link>
+      <description>전통 기와지붕 보수 및 수리 전문</description>
+      <pubDate>Wed, 25 Jun 2025 00:00:00 +0900</pubDate>
+    </item>
+    
+    <item>
+      <title>슬레이트지붕 교체</title>
+      <link>https://척척지붕개량.shop#slate</link>
+      <description>노후 슬레이트지붕 안전한 교체 서비스</description>
+      <pubDate>Wed, 25 Jun 2025 00:00:00 +0900</pubDate>
+    </item>
+  </channel>
+</rss>
