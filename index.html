@@ -29,6 +29,19 @@
 
     <!-- 일반 메타 태그 -->
     <meta name="image" content="https://raw.githubusercontent.com/dkf256/dkf256/main/thumbnail.jpg">
+
+    <!-- 구조화 데이터 JavaScript 로드 - 이 위치! -->
+    <script>
+    fetch('./schema-structured-data.json')
+      .then(response => response.json())
+      .then(data => {
+        const script = document.createElement('script');
+        script.type = 'application/ld+json';
+        script.textContent = JSON.stringify(data);
+        document.head.appendChild(script);
+      })
+      .catch(error => console.log('Schema load failed:', error));
+    </script>
     
     <style>
         * {
