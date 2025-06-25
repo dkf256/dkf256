@@ -1,0 +1,46 @@
+json
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "척척지붕개량사",
+  "description": "강원도 지역 전문 지붕개량 및 보수 서비스",
+  "url": "https://척척지붕개량.shop",
+  "address": {
+    "@type": "PostalAddress",
+    "addressRegion": "강원도",
+    "addressCountry": "KR"
+  },
+  "areaServed": [
+    "원주시", "춘천시", "강릉시", "속초시", "삼척시", "동해시", "태백시",
+    "홍천군", "횡성군", "평창군", "정선군", "철원군", "화천군", "양구군", "인제군", "고성군", "양양군"
+  ],
+  "serviceType": ["지붕개량", "지붕보수", "지붕공사", "지붕방수"],
+  "priceRange": "$$",
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "지붕공사 서비스",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "징크지붕 시공"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "기와지붕 보수"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "슬레이트지붕 교체"
+        }
+      }
+    ]
+  }
+}
