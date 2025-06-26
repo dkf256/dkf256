@@ -140,52 +140,23 @@
   <script>
     // 하루 보지 않기 기능
     const hideKey = 'popupHiddenToday';
-
-    // 오늘 날짜 문자열
     const todayStr = new Date().toISOString().slice(0, 10);
 
-    // 모바일 기기 감지
-    function isMobile() {
-      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) 
-             || window.innerWidth <= 768;
+    // 페이지 로드 시 localStorage 체크해서 숨길지 결정
+    if (localStorage.getItem(hideKey) === todayStr) {
+      document.getElementById('popupBody').style.display = 'none';
     }
-
-    // 현재 URL이 팝업 페이지인지 확인
-    function isPopupPage() {
-      return window.location.pathname.includes('popup') || 
-             window.location.href.includes('popup') ||
-             document.title.includes('태풍 대비');
-    }
-
-    // 페이지 로드 시 체크
-    window.addEventListener('DOMContentLoaded', function() {
-      // 팝업 페이지이고, 오늘 하루 보지 않기가 설정되어 있으면 홈페이지로 이동
-      if (isPopupPage() && localStorage.getItem(hideKey) === todayStr) {
-        // 즉시 리다이렉트하되, 한 번만 실행되도록 플래그 체크
-        if (!sessionStorage.getItem('redirecting')) {
-          sessionStorage.setItem('redirecting', 'true');
-          window.location.replace('https://xn--h49al5tfte8toeoda.shop/');
-        }
-      }
-    });
 
     function closePopup() {
       const hideToday = document.getElementById('hideToday').checked;
       
       if (hideToday) {
-        // "오늘 하루 보지 않기"가 체크된 경우: 로컬스토리지에 저장
         localStorage.setItem(hideKey, todayStr);
       }
       
-      // 리다이렉트 플래그 설정하고 홈페이지로 이동
-      sessionStorage.setItem('redirecting', 'true');
-      window.location.replace('https://xn--h49al5tfte8toeoda.shop/');
+      // 팝업 숨기기 (리다이렉트 하지 않음)
+      document.getElementById('popupBody').style.display = 'none';
     }
-
-    // 페이지 언로드 시 플래그 제거
-    window.addEventListener('beforeunload', function() {
-      sessionStorage.removeItem('redirecting');
-    });
   </script>
 </body>
 </html>
