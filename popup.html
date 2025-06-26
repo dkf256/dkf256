@@ -1,506 +1,118 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>태풍 대비 공사 안내</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>태풍 대비 지붕 점검 안내</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Noto Sans KR', sans-serif;
+      background: rgba(0, 0, 0, 0.6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
 
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f0f8ff;
-            padding: 0;
-            margin: 0;
-            overflow: hidden; /* 처음에는 스크롤 방지 */
-        }
+    .popup {
+      position: relative;
+      width: 90%;
+      max-width: 400px;
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 32px 24px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      text-align: center;
+      animation: slideUp 0.4s ease-out;
+    }
 
-        /* 팝업 오버레이 */
-        .popup-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
+    .popup h2 {
+      font-size: 20px;
+      margin-bottom: 12px;
+      color: #111;
+    }
 
-        /* 팝업 컨테이너 */
-        .popup-container {
-            background: linear-gradient(135deg, rgba(30, 58, 138, 0.95), rgba(59, 130, 246, 0.95));
-            border-radius: 20px;
-            padding: 0;
-            max-width: 500px;
-            width: 90%;
-            position: relative;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
-            animation: popupSlideIn 0.5s ease-out;
-        }
+    .popup p {
+      font-size: 15px;
+      color: #333;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
 
-        @keyframes popupSlideIn {
-            from {
-                opacity: 0;
-                transform: scale(0.8) translateY(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
-        }
+    .call-btn {
+      display: inline-block;
+      background-color: #ff5c00;
+      color: #fff;
+      padding: 14px 22px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 16px;
+      text-decoration: none;
+      transition: background-color 0.25s ease;
+    }
 
-        /* 배경 이미지 영역 */
-        .popup-header {
-            height: 180px;
-            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.6)),
-                        url('background_popup.jpg');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
+    .call-btn:hover {
+      background-color: #e14d00;
+    }
 
-        .popup-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at center, rgba(255, 193, 7, 0.2), transparent 70%);
-        }
+    .close-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: none;
+      border: none;
+      font-size: 22px;
+      color: #999;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
 
-        .popup-header h2 {
-            color: white;
-            font-size: 24px;
-            font-weight: bold;
-            text-align: center;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-            z-index: 1;
-            position: relative;
-        }
+    .close-btn:hover {
+      color: #333;
+    }
 
-        /* 팝업 내용 */
-        .popup-content {
-            padding: 30px;
-            text-align: center;
-            background: white;
-        }
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-        .alert-badge {
-            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: bold;
-            display: inline-block;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
-        }
-
-        .popup-message {
-            font-size: 18px;
-            line-height: 1.6;
-            color: #333;
-            margin-bottom: 25px;
-            font-weight: 500;
-        }
-
-        .contact-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 25px;
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
-        }
-
-        .contact-label {
-            color: white;
-            font-size: 14px;
-            margin-bottom: 8px;
-            opacity: 0.9;
-        }
-
-        .phone-number {
-            color: white;
-            font-size: 28px;
-            font-weight: bold;
-            text-decoration: none;
-            display: block;
-            letter-spacing: 2px;
-            transition: all 0.3s ease;
-        }
-
-        .phone-number:hover {
-            color: #ffd700;
-            transform: scale(1.05);
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-        }
-
-        /* 버튼 스타일 */
-        .button-group {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-        }
-
-        .btn {
-            padding: 15px 25px;
-            border: none;
-            border-radius: 25px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-            min-height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            -webkit-tap-highlight-color: transparent;
-            user-select: none;
-        }
-
-        .btn-call {
-            background: linear-gradient(45deg, #28a745, #20c997);
-            color: white;
-            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
-        }
-
-        .btn-call:hover, .btn-call:active {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.4);
-        }
-
-        .btn-close {
-            background: #6c757d;
-            color: white;
-        }
-
-        .btn-close:hover, .btn-close:active {
-            background: #5a6268;
-            transform: translateY(-2px);
-        }
-
-        /* 닫기 버튼 (X) */
-        .close-btn {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            color: white;
-            font-size: 24px;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            -webkit-tap-highlight-color: transparent;
-            user-select: none;
-        }
-
-        .close-btn:hover, .close-btn:active {
-            background: rgba(255, 255, 255, 0.3);
-            transform: scale(1.1);
-        }
-
-        /* 반응형 디자인 */
-        @media (max-width: 480px) {
-            .popup-container {
-                width: 95%;
-                margin: 10px;
-            }
-            
-            .popup-content {
-                padding: 20px;
-            }
-            
-            .popup-message {
-                font-size: 16px;
-            }
-            
-            .phone-number {
-                font-size: 24px;
-            }
-            
-            .button-group {
-                flex-direction: column;
-                gap: 12px;
-            }
-
-            .btn {
-                padding: 18px 25px;
-                min-height: 55px;
-                font-size: 17px;
-            }
-
-            .close-btn {
-                width: 45px;
-                height: 45px;
-                top: 12px;
-                right: 15px;
-                font-size: 26px;
-            }
-        }
-
-        /* 숨김 클래스 */
-        .hidden {
-            display: none !important;
-        }
-
-        /* 페이지 콘텐츠 - 처음에는 완전히 숨김 */
-        .page-content {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px 20px;
-            text-align: center;
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #f0f8ff;
-            z-index: -1;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .page-content.show {
-            position: static;
-            z-index: 1;
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .page-content h1 {
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        .demo-btn {
-            background: linear-gradient(45deg, #007bff, #0056b3);
-            color: white;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 25px;
-            font-size: 16px;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .demo-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 123, 255, 0.3);
-        }
-    </style>
+    @media (max-width: 480px) {
+      .popup {
+        padding: 24px 18px;
+      }
+      .popup h2 {
+        font-size: 18px;
+      }
+      .popup p {
+        font-size: 14px;
+      }
+      .call-btn {
+        font-size: 15px;
+        padding: 12px 18px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <!-- 팝업 -->
-    <div class="popup-overlay" id="popup">
-        <div class="popup-container">
-            <button class="close-btn" onclick="closePopup()" type="button">&times;</button>
-            
-            <div class="popup-header">
-                <h2>🌪️ 긴급 공지</h2>
-            </div>
-            
-            <div class="popup-content">
-                <div class="alert-badge">⚠️ 태풍 대비 필수</div>
-                
-                <div class="popup-message">
-                    현재 <strong>여름철 태풍 대비</strong> 공사량이 폭증하고 있습니다.<br>
-                    고민하지 마시고 지금 바로 연락주세요!
-                </div>
-                
-                <div class="contact-section">
-                    <div class="contact-label">📞 전문 상담 및 견적 문의</div>
-                    <a href="tel:010-6277-2902" class="phone-number">010-6277-2902</a>
-                </div>
-                
-                <div class="button-group">
-                    <a href="tel:010-6277-2902" class="btn btn-call">📞 지금 전화하기</a>
-                    <button class="btn btn-close" id="homeButton" onclick="handleHomeButton()" type="button">홈페이지 바로가기</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 페이지 본문 내용 (예시) -->
-    <div class="page-content">
-        <h1>태풍 대비 전문 공사업체</h1>
-        <p>안전하고 신뢰할 수 있는 태풍 대비 공사 서비스를 제공합니다.</p>
-        <p>팝업은 페이지 로드 시 자동으로 나타납니다.</p>
-        
-        <button class="demo-btn" onclick="showPopup()">팝업 다시 보기</button>
-    </div>
-
-    <script>
-        // 팝업 요소 참조
-        const popup = document.getElementById('popup');
-        const pageContent = document.querySelector('.page-content');
-        const homeButton = document.getElementById('homeButton');
-        
-        // 여기에 실제 홈페이지 URL을 입력하세요
-        const HOMEPAGE_URL = 'https://your-website.com'; // 실제 홈페이지 URL로 변경하세요
-        
-        // 모바일 기기 감지 함수
-        function isMobile() {
-            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
-                   window.innerWidth <= 768 || 
-                   ('ontouchstart' in window);
-        }
-        
-        // 페이지 로드 시 팝업 즉시 표시 및 버튼 설정
-        window.addEventListener('load', function() {
-            showPopup();
-            setupHomeButton();
-        });
-
-        // 홈페이지 버튼 설정
-        function setupHomeButton() {
-            if (isMobile()) {
-                // 모바일: 링크로 변경
-                homeButton.innerHTML = '🏠 홈페이지 바로가기';
-                homeButton.onclick = function() {
-                    window.location.href = HOMEPAGE_URL;
-                };
-            } else {
-                // 컴퓨터: 팝업 닫기
-                homeButton.innerHTML = '🏠 홈페이지 바로가기';
-                homeButton.onclick = function() {
-                    closePopup();
-                };
-            }
-        }
-
-        // 홈페이지 버튼 클릭 처리
-        function handleHomeButton() {
-            if (isMobile()) {
-                // 모바일에서는 홈페이지로 이동
-                window.location.href = HOMEPAGE_URL;
-            } else {
-                // 컴퓨터에서는 팝업 닫기
-                closePopup();
-            }
-        }
-        
-        // 팝업 표시 함수
-        function showPopup() {
-            popup.classList.remove('hidden');
-            popup.style.display = 'flex';
-            popup.style.visibility = 'visible';
-            popup.style.opacity = '1';
-            popup.style.pointerEvents = 'auto';
-            // 스크롤 방지
-            document.body.style.overflow = 'hidden';
-            document.body.style.padding = '0';
-            // 페이지 콘텐츠 완전히 숨김
-            pageContent.classList.remove('show');
-        }
-
-        // 팝업 닫기 함수 (컴퓨터용)
-        function closePopup() {
-            // 즉시 숨김 처리
-            popup.style.display = 'none';
-            popup.classList.add('hidden');
-            
-            // body 스크롤 복원 및 패딩 복원
-            document.body.style.overflow = 'auto';
-            document.body.style.padding = '20px';
-            
-            // 페이지 콘텐츠 표시
-            pageContent.classList.add('show');
-            
-            // 추가적인 확인을 위한 디버그 로그
-            console.log('팝업이 닫혔습니다. 홈페이지로 이동합니다.');
-            
-            // 모바일에서의 추가 보장 (이중 체크)
-            setTimeout(function() {
-                popup.style.display = 'none';
-                popup.style.visibility = 'hidden';
-                popup.style.opacity = '0';
-                popup.style.pointerEvents = 'none';
-            }, 50);
-        }
-
-        // 팝업 외부 클릭 시 닫기 (컴퓨터만)
-        popup.addEventListener('click', function(e) {
-            if (e.target === popup && !isMobile()) {
-                closePopup();
-            }
-        });
-
-        // 팝업 내부 클릭시 이벤트 전파 방지
-        popup.querySelector('.popup-container').addEventListener('click', function(e) {
-            e.stopPropagation();
-        });
-
-        // ESC 키로 팝업 닫기 (컴퓨터만)
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && popup.style.display !== 'none' && !isMobile()) {
-                closePopup();
-            }
-        });
-
-        // 터치 이벤트 처리 (모바일용 - 위로 스와이프시 홈페이지 이동)
-        let touchStartY = 0;
-        let touchEndY = 0;
-
-        popup.addEventListener('touchstart', function(e) {
-            touchStartY = e.changedTouches[0].screenY;
-        });
-
-        popup.addEventListener('touchend', function(e) {
-            touchEndY = e.changedTouches[0].screenY;
-            // 위로 스와이프 시 홈페이지로 이동 (모바일만)
-            if (touchStartY - touchEndY > 50 && isMobile()) {
-                window.location.href = HOMEPAGE_URL;
-            }
-        });
-
-        // 모바일 브라우저의 뒤로 가기 버튼 처리
-        window.addEventListener('popstate', function(e) {
-            if (popup.style.display !== 'none') {
-                if (isMobile()) {
-                    // 모바일에서는 홈페이지로 이동
-                    window.location.href = HOMEPAGE_URL;
-                } else {
-                    // 컴퓨터에서는 팝업 닫기
-                    closePopup();
-                    // 뒤로 가기 방지
-                    history.pushState(null, null, location.href);
-                }
-            }
-        });
-
-        // 페이지 로드 시 초기 히스토리 상태 설정
-        window.addEventListener('load', function() {
-            history.pushState({popupOpen: true}, null, location.href);
-        });
-
-        // 화면 크기 변경 시 버튼 재설정
-        window.addEventListener('resize', function() {
-            setupHomeButton();
-        });
-    </script>
+  <div class="popup">
+    <button class="close-btn" onclick="window.close()" aria-label="닫기">×</button>
+    <h2>여름 태풍 대비 지붕 점검 안내</h2>
+    <p>
+      최근 <strong>지붕 견적 문의가 폭증</strong>하고 있습니다.<br />
+      태풍 피해 전에 미리 점검하고 대비하세요!
+    </p>
+    <a class="call-btn" href="tel:01062772902">📞 010-6277-2902</a>
+  </div>
 </body>
 </html>
