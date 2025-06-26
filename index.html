@@ -218,65 +218,77 @@
         }
        
         /* Portfolio Section */
-        .portfolio {
-            padding: 5rem 0;
-            background: white;
-        }
-       
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-       
-        .portfolio-item {
-            background: #f8f9fa;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-        }
-       
-        .portfolio-item:hover {
-            transform: translateY(-5px);
-        }
-       
-        .portfolio-image {
-            height: 250px;
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden; /* 이미지가 넘치지 않게 */
-        }
+/* Portfolio Section */
+.portfolio {
+    padding: 5rem 0;
+    background: white;
+}
 
-        .portfolio-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* 비율 유지하면서 영역에 맞춤 */
-            display: block;
-        }
-        
-        .portfolio-content {
-            padding: 1.5rem;
-        }
-       
-        .portfolio-content h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-            color: #2c5530;
-        }
-       
-        .portfolio-details {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 1rem;
-            font-size: 0.9rem;
-            color: #666;
-        }
-       
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.portfolio-item {
+    background: #f8f9fa;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+    max-width: 400px; /* 카드 최대 너비 제한 */
+}
+
+.portfolio-item:hover {
+    transform: translateY(-5px);
+}
+
+.portfolio-image {
+    height: 250px;
+    overflow: hidden;
+    position: relative;
+}
+
+.portfolio-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.portfolio-content {
+    padding: 1.5rem;
+}
+
+.portfolio-content h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    color: #2c5530;
+}
+
+.portfolio-details {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* 모바일 대응 */
+@media (max-width: 768px) {
+    .portfolio-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .portfolio-item {
+        max-width: 100%;
+    }
+}       
         /* Quote Section */
         .quote-section {
             padding: 5rem 0;
