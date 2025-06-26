@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>견적문의 관련안내</title>
+  <title>태풍 대비 지붕 점검 안내</title>
   <style>
     * { box-sizing: border-box; }
     body {
@@ -113,17 +113,18 @@
     }
   </style>
 </head>
-<body id="popup-body">
+<body>
   <div class="popup" id="popup">
     <button class="close-btn" onclick="closePopup()">×</button>
-    <h2>견적문의 관련안내</h2>
+    <h2>여름 태풍 대비 지붕 점검 안내</h2>
     <p>
-      최근 <strong>태풍 대비 </strong> 지붕 견적 문의가 폭증하고 있습니다.<br />
-      피해 전에 미리 점검하고 대비하세요!
+      최근 <strong>지붕 견적 문의가 폭증</strong>하고 있습니다.<br />
+      태풍 피해 전에 미리 점검하고 대비하세요!
     </p>
     <a class="call-btn" href="tel:01062772902">📞 010-6277-2902</a>
-    <div class="help-text">
-  ※ 유선 및 문자상담 시 홈페이지를 통해 연락주셨다고 말씀해주세요.<br />
+  <div class="help-text">
+  ※ 유선 및 문자상담 시<br />
+  홈페이지를 통해 연락주셨다고 말씀해주세요.<br />
   보다 빠른 응대가 가능합니다.
     </div>
     <div class="checkbox-wrapper">
@@ -140,7 +141,7 @@
 
     // 로컬스토리지에 오늘 날짜가 저장되어 있으면 팝업 숨김
     if (localStorage.getItem(hideKey) === todayStr) {
-    document.getElementById('popup-body').style.display = 'none';
+      document.getElementById('popup').style.display = 'none';
     }
 
     function closePopup() {
@@ -151,5 +152,5 @@
       document.getElementById('popup').style.display = 'none';
     }
   </script>
-<body>
+</body>
 </html>
