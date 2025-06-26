@@ -338,7 +338,7 @@
                 
                 <div class="button-group">
                     <a href="tel:010-6277-2902" class="btn btn-call">📞 지금 전화하기</a>
-                    <button class="btn btn-close" onclick="closePopup()" type="button">홈페이지 바로가기</button>
+                    <button class="btn btn-close" id="homeButton" onclick="handleHomeButton()" type="button">홈페이지 바로가기</button>
                 </div>
             </div>
         </div>
@@ -357,12 +357,52 @@
         // 팝업 요소 참조
         const popup = document.getElementById('popup');
         const pageContent = document.querySelector('.page-content');
+        const homeButton = document.getElementById('homeButton');
         
-        // 페이지 로드 시 팝업 즉시 표시
+        // 여기에 실제 홈페이지 URL을 입력하세요
+        const HOMEPAGE_URL = 'https://your-website.com'; // 실제 홈페이지 URL로 변경하세요
+        
+        // 모바일 기기 감지 함수
+        function isMobile() {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+                   window.innerWidth <= 768 || 
+                   ('ontouchstart' in window);
+        }
+        
+        // 페이지 로드 시 팝업 즉시 표시 및 버튼 설정
         window.addEventListener('load', function() {
             showPopup();
+            setupHomeButton();
         });
 
+        // 홈페이지 버튼 설정
+        function setupHomeButton() {
+            if (isMobile()) {
+                // 모바일: 링크로 변경
+                homeButton.innerHTML = '🏠 홈페이지 바로가기';
+                homeButton.onclick = function() {
+                    window.location.href = HOMEPAGE_URL;
+                };
+            } else {
+                // 컴퓨터: 팝업 닫기
+                homeButton.innerHTML = '🏠 홈페이지 바로가기';
+                homeButton.onclick = function() {
+                    closePopup();
+                };
+            }
+        }
+
+        // 홈페이지 버튼 클릭 처리
+        function handleHomeButton() {
+            if (isMobile()) {
+                // 모바일에서는 홈페이지로 이동
+                window.location.href = HOMEPAGE_URL;
+            } else {
+                // 컴퓨터에서는 팝업 닫기
+                closePopup();
+            }
+        }
+        
         // 팝업 표시 함수
         function showPopup() {
             popup.classList.remove('hidden');
@@ -377,7 +417,7 @@
             pageContent.classList.remove('show');
         }
 
-        // 팝업 닫기 함수 (강화된 버전)
+        // 팝업 닫기 함수 (컴퓨터용)
         function closePopup() {
             // 즉시 숨김 처리
             popup.style.display = 'none';
@@ -400,18 +440,11 @@
                 popup.style.opacity = '0';
                 popup.style.pointerEvents = 'none';
             }, 50);
-            
-            // 완전히 제거 보장
-            setTimeout(function() {
-                if (popup.parentNode) {
-                    popup.parentNode.removeChild(popup);
-                }
-            }, 100);
         }
 
-        // 팝업 외부 클릭 시 닫기
+        // 팝업 외부 클릭 시 닫기 (컴퓨터만)
         popup.addEventListener('click', function(e) {
-            if (e.target === popup) {
+            if (e.target === popup && !isMobile()) {
                 closePopup();
             }
         });
@@ -421,14 +454,14 @@
             e.stopPropagation();
         });
 
-        // ESC 키로 팝업 닫기
+        // ESC 키로 팝업 닫기 (컴퓨터만)
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && popup.style.display !== 'none') {
+            if (e.key === 'Escape' && popup.style.display !== 'none' && !isMobile()) {
                 closePopup();
             }
         });
 
-        // 터치 이벤트 처리 (모바일 최적화)
+        // 터치 이벤트 처리 (모바일용 - 위로 스와이프시 홈페이지 이동)
         let touchStartY = 0;
         let touchEndY = 0;
 
@@ -438,24 +471,35 @@
 
         popup.addEventListener('touchend', function(e) {
             touchEndY = e.changedTouches[0].screenY;
-            // 위로 스와이프 시 팝업 닫기
-            if (touchStartY - touchEndY > 50) {
-                closePopup();
+            // 위로 스와이프 시 홈페이지로 이동 (모바일만)
+            if (touchStartY - touchEndY > 50 && isMobile()) {
+                window.location.href = HOMEPAGE_URL;
             }
         });
 
         // 모바일 브라우저의 뒤로 가기 버튼 처리
         window.addEventListener('popstate', function(e) {
             if (popup.style.display !== 'none') {
-                closePopup();
-                // 뒤로 가기 방지
-                history.pushState(null, null, location.href);
+                if (isMobile()) {
+                    // 모바일에서는 홈페이지로 이동
+                    window.location.href = HOMEPAGE_URL;
+                } else {
+                    // 컴퓨터에서는 팝업 닫기
+                    closePopup();
+                    // 뒤로 가기 방지
+                    history.pushState(null, null, location.href);
+                }
             }
         });
 
         // 페이지 로드 시 초기 히스토리 상태 설정
         window.addEventListener('load', function() {
             history.pushState({popupOpen: true}, null, location.href);
+        });
+
+        // 화면 크기 변경 시 버튼 재설정
+        window.addEventListener('resize', function() {
+            setupHomeButton();
         });
     </script>
 </body>
