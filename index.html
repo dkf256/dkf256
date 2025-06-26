@@ -217,78 +217,103 @@
             color: #2c5530;
         }
        
-        /* Portfolio Section */
 /* Portfolio Section */
-.portfolio {
-    padding: 5rem 0;
-    background: white;
-}
-
-.portfolio-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 2rem;
-    margin-top: 3rem;
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.portfolio-item {
-    background: #f8f9fa;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    transition: transform 0.3s;
-    max-width: 400px; /* 카드 최대 너비 제한 */
-}
-
-.portfolio-item:hover {
-    transform: translateY(-5px);
-}
-
-.portfolio-image {
-    height: 250px;
-    overflow: hidden;
-    position: relative;
-}
-
-.portfolio-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-.portfolio-content {
-    padding: 1.5rem;
-}
-
-.portfolio-content h3 {
-    font-size: 1.3rem;
-    margin-bottom: 0.5rem;
-    color: #2c5530;
-}
-
-.portfolio-details {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 1rem;
-    font-size: 0.9rem;
-    color: #666;
-}
-
-/* 모바일 대응 */
-@media (max-width: 768px) {
-    .portfolio-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-    
-    .portfolio-item {
-        max-width: 100%;
-    }
-}       
+        .portfolio {
+            padding: 5rem 0;
+            background: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+        
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .portfolio-item {
+            background: #f8f9fa;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            max-width: 400px; /* 카드 최대 너비 제한 */
+        }
+        
+        .portfolio-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .portfolio-image {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .portfolio-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .portfolio-content {
+            padding: 1.5rem;
+        }
+        
+        .portfolio-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #2c5530;
+        }
+        
+        .portfolio-content p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .portfolio-details {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        /* 태블릿 대응 */
+        @media (max-width: 992px) {
+            .portfolio-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        /* 모바일 대응 */
+        @media (max-width: 768px) {
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .portfolio-item {
+                max-width: 100%;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }    
         /* Quote Section */
         .quote-section {
             padding: 5rem 0;
@@ -567,8 +592,9 @@
             <p style="text-align: center; color: #666; font-size: 1.1rem; margin-bottom: 2rem;">아래 시공사례는 최신 시공사례만을 업로드 하였습니다</p>
             <div class="portfolio-grid">
                 <div class="portfolio-item">
-                <div class="portfolio-image">                    
-                    <img src="https://dkf256.github.io/dkf256/image7.jpg" alt="시공 후 사진" />
+                    <div class="portfolio-image">                    
+                        <img src="https://dkf256.github.io/dkf256/image7.jpg" alt="시공 후 사진" />
+                    </div>
                     <div class="portfolio-content">
                         <h3>강원 춘천 단독주택 지붕교체</h3>
                         <p>30년된 기와지붕을 현대식 슬레이트로 전면 교체. 단열재 추가 시공으로 에너지 효율성 대폭 개선.</p>
@@ -578,9 +604,11 @@
                         </div>
                     </div>
                 </div>
+                
                 <div class="portfolio-item">
-                <div class="portfolio-image">                    
-                    <img src="https://dkf256.github.io/dkf256/image6.jpg" alt="시공 후 사진" />
+                    <div class="portfolio-image">                    
+                        <img src="https://dkf256.github.io/dkf256/image6.jpg" alt="시공 후 사진" />
+                    </div>
                     <div class="portfolio-content">
                         <h3>강원 원주 다세대주택 방수공사</h3>
                         <p>누수로 고생하던 옥상을 완전 방수처리. 우레탄 방수 + 보호층 시공으로 완벽한 누수 차단.</p>
@@ -590,9 +618,11 @@
                         </div>
                     </div>
                 </div>
+                
                 <div class="portfolio-item">
-                <div class="portfolio-image">                    
-                    <img src="https://dkf256.github.io/dkf256/image5.jpg" alt="시공 후 사진" />
+                    <div class="portfolio-image">                    
+                        <img src="https://dkf256.github.io/dkf256/image5.jpg" alt="시공 후 사진" />
+                    </div>
                     <div class="portfolio-content">
                         <h3>강원 홍천 상가건물 지붕보수</h3>
                         <p>태풍으로 손상된 지붕 긴급복구. 안전한 임시조치 후 완전한 지붕 재시공까지 원스톱 서비스.</p>
@@ -602,9 +632,11 @@
                         </div>
                     </div>
                 </div>
+                
                 <div class="portfolio-item">
-                <div class="portfolio-image">                    
-                    <img src="https://dkf256.github.io/dkf256/image4.jpg" alt="시공 후 사진" />
+                    <div class="portfolio-image">                    
+                        <img src="https://dkf256.github.io/dkf256/image4.jpg" alt="시공 후 사진" />
+                    </div>
                     <div class="portfolio-content">
                         <h3>경기 가평 펜션 지붕개량</h3>
                         <p>오랜기간 부식된 지붕을 내구성 강한 징크로 교체. 방청처리로 장기간 사용 가능.</p>
@@ -614,9 +646,11 @@
                         </div>
                     </div>
                 </div>
+                
                 <div class="portfolio-item">
-                <div class="portfolio-image">
-                   <img src="https://dkf256.github.io/dkf256/image3.jpg" alt="시공 후 사진" />
+                    <div class="portfolio-image">
+                       <img src="https://dkf256.github.io/dkf256/image3.jpg" alt="시공 후 사진" />
+                    </div>
                     <div class="portfolio-content">
                         <h3>충북 충주 단독주택 지붕개량</h3>
                         <p>오래된 단독주택에 현대식 지붕을 적용하여 심미성 개선 및 에너지절약 실현.</p>
@@ -626,10 +660,12 @@
                         </div>
                     </div>
                 </div>
+                
                 <div class="portfolio-item">
-                <div class="portfolio-image">
-                   <img src="https://dkf256.github.io/dkf256/image2.jpg" alt="시공 후 사진" />
-                   </div>
+                    <div class="portfolio-image">
+                       <img src="https://dkf256.github.io/dkf256/image2.jpg" alt="시공 후 사진" />
+                    </div>
+                    <div class="portfolio-content">
                         <h3>강원 고성 단독주택 지붕개량</h3>
                         <p>바닷바람에 손상된 지붕을 고품질 용마루지붕으로 교체하여 디자인과 내구성 모두 확보.</p>
                         <div class="portfolio-details">
