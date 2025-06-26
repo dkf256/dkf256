@@ -263,12 +263,17 @@
             display: none !important;
         }
 
-        /* 페이지 콘텐츠 */
+        /* 페이지 콘텐츠 - 처음에는 숨김 */
         .page-content {
             max-width: 800px;
             margin: 0 auto;
             padding: 40px 20px;
             text-align: center;
+            display: none; /* 처음에는 숨김 */
+        }
+
+        .page-content.show {
+            display: block; /* 팝업 닫힌 후에만 보임 */
         }
 
         .page-content h1 {
@@ -296,7 +301,7 @@
 </head>
 <body>
     <!-- 팝업 -->
-    <div class="popup-overlay hidden" id="popup">
+    <div class="popup-overlay" id="popup">
         <div class="popup-container">
             <button class="close-btn" onclick="closePopup()" type="button">&times;</button>
             
@@ -319,7 +324,7 @@
                 
                 <div class="button-group">
                     <a href="tel:010-6277-2902" class="btn btn-call">📞 지금 전화하기</a>
-                    <button class="btn btn-close" onclick="closePopup()" type="button">나중에 하기</button>
+                    <button class="btn btn-close" onclick="closePopup()" type="button">팝업 닫기</button>
                 </div>
             </div>
         </div>
@@ -337,12 +342,11 @@
     <script>
         // 팝업 요소 참조
         const popup = document.getElementById('popup');
+        const pageContent = document.querySelector('.page-content');
         
-        // 페이지 로드 시 팝업 자동 표시 (3초 후)
+        // 페이지 로드 시 팝업 즉시 표시
         window.addEventListener('load', function() {
-            setTimeout(function() {
-                showPopup();
-            }, 3000);
+            showPopup();
         });
 
         // 팝업 표시 함수
@@ -351,25 +355,38 @@
             popup.style.display = 'flex';
             // 스크롤 방지
             document.body.style.overflow = 'hidden';
+            // 페이지 콘텐츠 숨김
+            pageContent.classList.remove('show');
         }
 
-        // 팝업 닫기 함수 (향상된 버전)
+        // 팝업 닫기 함수 (강화된 버전)
         function closePopup() {
+            // 즉시 숨김 처리
             popup.style.display = 'none';
             popup.classList.add('hidden');
+            
             // 스크롤 복원
             document.body.style.overflow = 'auto';
+            
+            // 페이지 콘텐츠 표시
+            pageContent.classList.add('show');
             
             // 추가적인 확인을 위한 디버그 로그
             console.log('팝업이 닫혔습니다.');
             
-            // 모바일에서의 추가 보장
+            // 모바일에서의 추가 보장 (이중 체크)
             setTimeout(function() {
                 popup.style.display = 'none';
+                popup.style.visibility = 'hidden';
+            }, 50);
+            
+            // 완전히 제거 보장
+            setTimeout(function() {
+                popup.remove();
             }, 100);
         }
 
-        // 팝업 외부 클릭 시 닫기 (향상된 버전)
+        // 팝업 외부 클릭 시 닫기
         popup.addEventListener('click', function(e) {
             if (e.target === popup) {
                 closePopup();
@@ -383,7 +400,7 @@
 
         // ESC 키로 팝업 닫기
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && !popup.classList.contains('hidden')) {
+            if (e.key === 'Escape' && popup.style.display !== 'none') {
                 closePopup();
             }
         });
@@ -406,23 +423,16 @@
 
         // 모바일 브라우저의 뒤로 가기 버튼 처리
         window.addEventListener('popstate', function(e) {
-            if (!popup.classList.contains('hidden')) {
+            if (popup.style.display !== 'none') {
                 closePopup();
                 // 뒤로 가기 방지
                 history.pushState(null, null, location.href);
             }
         });
 
-        // 팝업이 열릴 때 히스토리 상태 추가
-        function addHistoryState() {
-            history.pushState({popupOpen: true}, null, location.href);
-        }
-
         // 페이지 로드 시 초기 히스토리 상태 설정
         window.addEventListener('load', function() {
-            setTimeout(function() {
-                addHistoryState();
-            }, 3100);
+            history.pushState({popupOpen: true}, null, location.href);
         });
     </script>
 </body>
