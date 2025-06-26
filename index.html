@@ -712,6 +712,12 @@
                 header.style.backdropFilter = 'none';
             }
         });
+    // 페이지 로드 3초 후 팝업 자동 표시 (이 부분을 추가)
+    window.addEventListener('load', function() {
+        setTimeout(function() {
+            window.open('popup.html', 'constructionPopup', 'width=600,height=700,scrollbars=no,resizable=no,toolbar=no,location=no,directories=no,status=no,menubar=no');
+        }, 1500);
+    });        
     </script>
 </body>
 </html>
