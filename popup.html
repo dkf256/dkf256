@@ -3,11 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>태풍 대비 지붕 점검 안내</title>
+  <title>견적문의 관련안내</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
     body {
       margin: 0;
       padding: 0;
@@ -21,24 +19,24 @@
 
     .popup {
       position: relative;
-      width: 90%;
-      max-width: 400px;
-      background: #ffffff;
-      border-radius: 16px;
-      padding: 32px 24px;
+      width: 95%;
+      max-width: 500px;
+      background: #fff;
+      border-radius: 18px;
+      padding: 36px 28px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
       text-align: center;
       animation: slideUp 0.4s ease-out;
     }
 
     .popup h2 {
-      font-size: 20px;
-      margin-bottom: 12px;
+      font-size: 22px;
+      margin-bottom: 14px;
       color: #111;
     }
 
     .popup p {
-      font-size: 15px;
+      font-size: 16px;
       color: #333;
       line-height: 1.6;
       margin-bottom: 24px;
@@ -48,10 +46,10 @@
       display: inline-block;
       background-color: #ff5c00;
       color: #fff;
-      padding: 14px 22px;
+      padding: 14px 26px;
       border-radius: 8px;
       font-weight: 600;
-      font-size: 16px;
+      font-size: 17px;
       text-decoration: none;
       transition: background-color 0.25s ease;
     }
@@ -66,14 +64,25 @@
       right: 12px;
       background: none;
       border: none;
-      font-size: 22px;
+      font-size: 24px;
       color: #999;
       cursor: pointer;
-      transition: color 0.2s ease;
     }
 
     .close-btn:hover {
       color: #333;
+    }
+
+    .checkbox-wrapper {
+      margin-top: 24px;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .help-text {
+      margin-top: 10px;
+      font-size: 13px;
+      color: #888;
     }
 
     @keyframes slideUp {
@@ -89,30 +98,57 @@
 
     @media (max-width: 480px) {
       .popup {
-        padding: 24px 18px;
+        padding: 28px 20px;
       }
       .popup h2 {
-        font-size: 18px;
+        font-size: 20px;
       }
       .popup p {
-        font-size: 14px;
+        font-size: 15px;
       }
       .call-btn {
-        font-size: 15px;
-        padding: 12px 18px;
+        font-size: 16px;
+        padding: 12px 22px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="popup">
-    <button class="close-btn" onclick="window.close()" aria-label="닫기">×</button>
-    <h2>여름 태풍 대비 지붕 점검 안내</h2>
+  <div class="popup" id="popup">
+    <button class="close-btn" onclick="closePopup()">×</button>
+    <h2>견적문의 관련안내</h2>
     <p>
-      최근 <strong>지붕 견적 문의가 폭증</strong>하고 있습니다.<br />
+      최근 <strong>태풍 대비</strong>지붕 견적 문의가 폭증하고 있습니다.<br />
       태풍 피해 전에 미리 점검하고 대비하세요!
     </p>
     <a class="call-btn" href="tel:01062772902">📞 010-6277-2902</a>
+    <div class="help-text">
+      ※ 유선 및 문자상담 시 홈페이지를 통해 연락주셨다고 말씀해주세요. 좀더 빠른 응대가 가능합니다.
+    </div>
+    <div class="checkbox-wrapper">
+      <label><input type="checkbox" id="hideToday" /> 오늘 하루 보지 않기</label>
+    </div>
   </div>
+
+  <script>
+    // 하루 보지 않기 기능
+    const hideKey = 'popupHiddenToday';
+
+    // 오늘 날짜 문자열
+    const todayStr = new Date().toISOString().slice(0, 10);
+
+    // 로컬스토리지에 오늘 날짜가 저장되어 있으면 팝업 숨김
+    if (localStorage.getItem(hideKey) === todayStr) {
+      document.getElementById('popup').style.display = 'none';
+    }
+
+    function closePopup() {
+      const hideToday = document.getElementById('hideToday').checked;
+      if (hideToday) {
+        localStorage.setItem(hideKey, todayStr);
+      }
+      document.getElementById('popup').style.display = 'none';
+    }
+  </script>
 </body>
 </html>
