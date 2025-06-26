@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>견적관련 문의안내</title>
+  <title>견적문의 관련안내</title>
   <style>
     * { box-sizing: border-box; }
     body {
@@ -121,10 +121,10 @@
 <body id="popupBody">
   <div class="popup" id="popup">
     <button class="close-btn" onclick="closePopup()">×</button>
-    <h2>견적관련 문의안내</h2>
+    <h2>견적문의 관련안내</h2>
     <p>
-      최근 <strong>태풍에 대비한 </strong>지붕 견적 문의가 폭증하고 있습니다.<br />
-      최소한의 비용으로 피해에 대비하세요!
+      최근 <strong>태풍 대비 </strong> 견적문의가 폭증하고 있습니다.<br />
+      태풍 피해 전에 미리 점검하고 대비하세요!
     </p>
     <a class="call-btn" href="tel:01062772902">📞 010-6277-2902</a>
   <div class="help-text">
@@ -159,16 +159,19 @@
       const hideToday = document.getElementById('hideToday').checked;
       
       if (hideToday) {
-        // "오늘 하루 보지 않기"가 체크된 경우: 전체 body를 숨김
+        // "오늘 하루 보지 않기"가 체크된 경우: 로컬스토리지에 저장
         localStorage.setItem(hideKey, todayStr);
-        document.getElementById('popupBody').classList.add('hidden');
+      }
+      
+      // 모바일인지 확인하고 동작 결정
+      if (isMobile()) {
+        // 모바일에서는 항상 홈페이지로 이동
+        window.location.href = 'https://xn--h49al5tfte8toeoda.shop/';
       } else {
-        // 단순히 X 버튼만 눌렀을 경우
-        if (isMobile()) {
-          // 모바일에서는 홈페이지로 이동
-          window.location.href = 'https://척척개량지붕.shop';
+        // PC에서는 체크 여부에 따라 동작
+        if (hideToday) {
+          document.getElementById('popupBody').classList.add('hidden');
         } else {
-          // PC에서는 팝업만 숨김
           document.getElementById('popup').style.display = 'none';
         }
       }
