@@ -154,7 +154,7 @@
         }
 
         .btn {
-            padding: 12px 25px;
+            padding: 15px 25px;
             border: none;
             border-radius: 25px;
             font-size: 16px;
@@ -163,6 +163,12 @@
             transition: all 0.3s ease;
             text-decoration: none;
             display: inline-block;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
         }
 
         .btn-call {
@@ -171,7 +177,7 @@
             box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
         }
 
-        .btn-call:hover {
+        .btn-call:hover, .btn-call:active {
             transform: translateY(-2px);
             box-shadow: 0 8px 25px rgba(40, 167, 69, 0.4);
         }
@@ -181,7 +187,7 @@
             color: white;
         }
 
-        .btn-close:hover {
+        .btn-close:hover, .btn-close:active {
             background: #5a6268;
             transform: translateY(-2px);
         }
@@ -195,8 +201,8 @@
             border: none;
             color: white;
             font-size: 24px;
-            width: 35px;
-            height: 35px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             cursor: pointer;
             display: flex;
@@ -204,9 +210,11 @@
             justify-content: center;
             transition: all 0.3s ease;
             backdrop-filter: blur(10px);
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
         }
 
-        .close-btn:hover {
+        .close-btn:hover, .close-btn:active {
             background: rgba(255, 255, 255, 0.3);
             transform: scale(1.1);
         }
@@ -232,12 +240,27 @@
             
             .button-group {
                 flex-direction: column;
+                gap: 12px;
+            }
+
+            .btn {
+                padding: 18px 25px;
+                min-height: 55px;
+                font-size: 17px;
+            }
+
+            .close-btn {
+                width: 45px;
+                height: 45px;
+                top: 12px;
+                right: 15px;
+                font-size: 26px;
             }
         }
 
         /* 숨김 클래스 */
         .hidden {
-            display: none;
+            display: none !important;
         }
 
         /* 페이지 콘텐츠 */
@@ -273,9 +296,9 @@
 </head>
 <body>
     <!-- 팝업 -->
-    <div class="popup-overlay" id="popup">
+    <div class="popup-overlay hidden" id="popup">
         <div class="popup-container">
-            <button class="close-btn" onclick="closePopup()">&times;</button>
+            <button class="close-btn" onclick="closePopup()" type="button">&times;</button>
             
             <div class="popup-header">
                 <h2>🌪️ 긴급 공지</h2>
@@ -296,7 +319,7 @@
                 
                 <div class="button-group">
                     <a href="tel:010-6277-2902" class="btn btn-call">📞 지금 전화하기</a>
-                    <button class="btn btn-close" onclick="closePopup()">나중에 하기</button>
+                    <button class="btn btn-close" onclick="closePopup()" type="button">나중에 하기</button>
                 </div>
             </div>
         </div>
@@ -312,35 +335,94 @@
     </div>
 
     <script>
+        // 팝업 요소 참조
+        const popup = document.getElementById('popup');
+        
         // 페이지 로드 시 팝업 자동 표시 (3초 후)
         window.addEventListener('load', function() {
             setTimeout(function() {
-                document.getElementById('popup').style.display = 'flex';
+                showPopup();
             }, 3000);
         });
 
-        // 팝업 닫기 함수
-        function closePopup() {
-            document.getElementById('popup').style.display = 'none';
-        }
-
-        // 팝업 다시 보기 함수
+        // 팝업 표시 함수
         function showPopup() {
-            document.getElementById('popup').style.display = 'flex';
+            popup.classList.remove('hidden');
+            popup.style.display = 'flex';
+            // 스크롤 방지
+            document.body.style.overflow = 'hidden';
         }
 
-        // 팝업 외부 클릭 시 닫기
-        document.getElementById('popup').addEventListener('click', function(e) {
-            if (e.target === this) {
+        // 팝업 닫기 함수 (향상된 버전)
+        function closePopup() {
+            popup.style.display = 'none';
+            popup.classList.add('hidden');
+            // 스크롤 복원
+            document.body.style.overflow = 'auto';
+            
+            // 추가적인 확인을 위한 디버그 로그
+            console.log('팝업이 닫혔습니다.');
+            
+            // 모바일에서의 추가 보장
+            setTimeout(function() {
+                popup.style.display = 'none';
+            }, 100);
+        }
+
+        // 팝업 외부 클릭 시 닫기 (향상된 버전)
+        popup.addEventListener('click', function(e) {
+            if (e.target === popup) {
                 closePopup();
             }
+        });
+
+        // 팝업 내부 클릭시 이벤트 전파 방지
+        popup.querySelector('.popup-container').addEventListener('click', function(e) {
+            e.stopPropagation();
         });
 
         // ESC 키로 팝업 닫기
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
+            if (e.key === 'Escape' && !popup.classList.contains('hidden')) {
                 closePopup();
             }
+        });
+
+        // 터치 이벤트 처리 (모바일 최적화)
+        let touchStartY = 0;
+        let touchEndY = 0;
+
+        popup.addEventListener('touchstart', function(e) {
+            touchStartY = e.changedTouches[0].screenY;
+        });
+
+        popup.addEventListener('touchend', function(e) {
+            touchEndY = e.changedTouches[0].screenY;
+            // 위로 스와이프 시 팝업 닫기
+            if (touchStartY - touchEndY > 50) {
+                closePopup();
+            }
+        });
+
+        // 모바일 브라우저의 뒤로 가기 버튼 처리
+        window.addEventListener('popstate', function(e) {
+            if (!popup.classList.contains('hidden')) {
+                closePopup();
+                // 뒤로 가기 방지
+                history.pushState(null, null, location.href);
+            }
+        });
+
+        // 팝업이 열릴 때 히스토리 상태 추가
+        function addHistoryState() {
+            history.pushState({popupOpen: true}, null, location.href);
+        }
+
+        // 페이지 로드 시 초기 히스토리 상태 설정
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                addHistoryState();
+            }, 3100);
         });
     </script>
 </body>
