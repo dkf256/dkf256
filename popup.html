@@ -14,7 +14,9 @@
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f0f8ff;
-            padding: 20px;
+            padding: 0;
+            margin: 0;
+            overflow: hidden; /* 처음에는 스크롤 방지 */
         }
 
         /* 팝업 오버레이 */
@@ -263,17 +265,29 @@
             display: none !important;
         }
 
-        /* 페이지 콘텐츠 - 처음에는 숨김 */
+        /* 페이지 콘텐츠 - 처음에는 완전히 숨김 */
         .page-content {
             max-width: 800px;
             margin: 0 auto;
             padding: 40px 20px;
             text-align: center;
-            display: none; /* 처음에는 숨김 */
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #f0f8ff;
+            z-index: -1;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
         }
 
         .page-content.show {
-            display: block; /* 팝업 닫힌 후에만 보임 */
+            position: static;
+            z-index: 1;
+            opacity: 1;
+            visibility: visible;
         }
 
         .page-content h1 {
@@ -324,7 +338,7 @@
                 
                 <div class="button-group">
                     <a href="tel:010-6277-2902" class="btn btn-call">📞 지금 전화하기</a>
-                    <button class="btn btn-close" onclick="closePopup()" type="button">팝업 닫기</button>
+                    <button class="btn btn-close" onclick="closePopup()" type="button">홈페이지 바로가기</button>
                 </div>
             </div>
         </div>
@@ -353,9 +367,13 @@
         function showPopup() {
             popup.classList.remove('hidden');
             popup.style.display = 'flex';
+            popup.style.visibility = 'visible';
+            popup.style.opacity = '1';
+            popup.style.pointerEvents = 'auto';
             // 스크롤 방지
             document.body.style.overflow = 'hidden';
-            // 페이지 콘텐츠 숨김
+            document.body.style.padding = '0';
+            // 페이지 콘텐츠 완전히 숨김
             pageContent.classList.remove('show');
         }
 
@@ -365,24 +383,29 @@
             popup.style.display = 'none';
             popup.classList.add('hidden');
             
-            // 스크롤 복원
+            // body 스크롤 복원 및 패딩 복원
             document.body.style.overflow = 'auto';
+            document.body.style.padding = '20px';
             
             // 페이지 콘텐츠 표시
             pageContent.classList.add('show');
             
             // 추가적인 확인을 위한 디버그 로그
-            console.log('팝업이 닫혔습니다.');
+            console.log('팝업이 닫혔습니다. 홈페이지로 이동합니다.');
             
             // 모바일에서의 추가 보장 (이중 체크)
             setTimeout(function() {
                 popup.style.display = 'none';
                 popup.style.visibility = 'hidden';
+                popup.style.opacity = '0';
+                popup.style.pointerEvents = 'none';
             }, 50);
             
             // 완전히 제거 보장
             setTimeout(function() {
-                popup.remove();
+                if (popup.parentNode) {
+                    popup.parentNode.removeChild(popup);
+                }
             }, 100);
         }
 
