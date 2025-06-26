@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>태풍 대비 지붕 점검 안내</title>
+  <title>견적관련 문의안내</title>
   <style>
     * { box-sizing: border-box; }
     body {
@@ -111,15 +111,20 @@
         padding: 12px 22px;
       }
     }
+
+    /* 숨김 클래스 */
+    .hidden {
+      display: none !important;
+    }
   </style>
 </head>
-<body>
+<body id="popupBody">
   <div class="popup" id="popup">
     <button class="close-btn" onclick="closePopup()">×</button>
-    <h2>여름 태풍 대비 지붕 점검 안내</h2>
+    <h2>견적관련 문의안내</h2>
     <p>
-      최근 <strong>지붕 견적 문의가 폭증</strong>하고 있습니다.<br />
-      태풍 피해 전에 미리 점검하고 대비하세요!
+      최근 <strong>태풍에 대비한 </strong>지붕 견적 문의가 폭증하고 있습니다.<br />
+      최소한의 비용으로 피해에 대비하세요!
     </p>
     <a class="call-btn" href="tel:01062772902">📞 010-6277-2902</a>
   <div class="help-text">
@@ -139,17 +144,34 @@
     // 오늘 날짜 문자열
     const todayStr = new Date().toISOString().slice(0, 10);
 
+    // 모바일 기기 감지
+    function isMobile() {
+      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) 
+             || window.innerWidth <= 768;
+    }
+
     // 로컬스토리지에 오늘 날짜가 저장되어 있으면 팝업 숨김
     if (localStorage.getItem(hideKey) === todayStr) {
-      document.getElementById('popup').style.display = 'none';
+      document.getElementById('popupBody').classList.add('hidden');
     }
 
     function closePopup() {
       const hideToday = document.getElementById('hideToday').checked;
+      
       if (hideToday) {
+        // "오늘 하루 보지 않기"가 체크된 경우: 전체 body를 숨김
         localStorage.setItem(hideKey, todayStr);
+        document.getElementById('popupBody').classList.add('hidden');
+      } else {
+        // 단순히 X 버튼만 눌렀을 경우
+        if (isMobile()) {
+          // 모바일에서는 홈페이지로 이동
+          window.location.href = 'https://척척개량지붕.shop';
+        } else {
+          // PC에서는 팝업만 숨김
+          document.getElementById('popup').style.display = 'none';
+        }
       }
-      document.getElementById('popup').style.display = 'none';
     }
   </script>
 </body>
