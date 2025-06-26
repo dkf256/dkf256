@@ -113,7 +113,7 @@
     }
   </style>
 </head>
-<body>
+<body id="popup-body">
   <div class="popup" id="popup">
     <button class="close-btn" onclick="closePopup()">×</button>
     <h2>견적문의 관련안내</h2>
@@ -140,7 +140,7 @@
 
     // 로컬스토리지에 오늘 날짜가 저장되어 있으면 팝업 숨김
     if (localStorage.getItem(hideKey) === todayStr) {
-      document.getElementById('popup').style.display = 'none';
+    document.getElementById('popup-body').style.display = 'none';
     }
 
     function closePopup() {
@@ -151,5 +151,5 @@
       document.getElementById('popup').style.display = 'none';
     }
   </script>
-</body>
+<body id="popup-body">
 </html>
