@@ -515,6 +515,67 @@
                 margin-bottom: 1rem;
             }
         }
+        
+                /* Map Section - 여기서부터 새로 추가 */
+        .map-section {
+            padding: 5rem 0;
+            background: white;
+        }
+
+        .map-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            margin-top: 3rem;
+            align-items: start;
+        }
+        
+        .map-info {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .address-info, .transport-info {
+            margin-bottom: 2rem;
+        }
+
+        .address-info h3, .transport-info h3 {
+            color: #2c5530;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .address-info p, .transport-info p {
+            color: #666;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 0.5rem;
+        }
+
+        .map-embed {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        /* Mobile Responsive for Map */
+        @media (max-width: 768px) {
+            .map-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .map-embed iframe {
+                height: 300px;
+            }
+            
+            .map-section {
+                padding: 3rem 0;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -741,7 +802,38 @@
             </div>
         </div>
     </section>
-
+    <!-- Map Section -->
+    <section id="map" class="map-section">
+        <div class="container">
+            <h2 class="section-title">찾아오시는 길</h2>
+            <div class="map-container">
+                <div class="map-info">
+                    <div class="address-info">
+                        <h3>📍 주소</h3>
+                        <p>강원도 원주시 적동1길 167</p>
+                        <p>척척지붕개량공사</p>
+                    </div>
+                    <div class="transport-info">
+                        <h3>🚗 교통편</h3>
+                        <p>• 원주IC에서 차로 15분</p>
+                        <p>• 원주시내에서 차로 10분</p>
+                        <p>• 방문 전 미리 연락 부탁드립니다</p>
+                    </div>
+                </div>
+                <div class="map-embed">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3170.0966797656088!2d127.96163177499758!3d37.38754583437287!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x35630aba4bf4bead%3A0xe0d72e913c667a7f!2z6rCV7JuQ7Yq567OE7J6Q7LmY64-EIOybkOyjvOyLnCDsoIHrj5kx6ri4IDE2Ny0x!5e0!3m2!1sko!2skr!4v1751180775564!5m2!1sko!2skr"
+                        width="100%" 
+                        height="400" 
+                        style="border:0; border-radius: 10px;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
     <!-- Footer -->
     <footer>
         <div class="container">
